@@ -6,8 +6,11 @@ const {
     authFacebook , 
     authLinkedeIn ,
     receiveAccount,
-    changePassword } = require('../controller/authController');
+    changePassword,
+    googleIdenty } = require('../controller/authController');
 const router = express.Router();
+const passport = require('passport')
+require('../config/passport')
 
 router.post('/authLogin',authLogin);
 router.post('/authRegistration',authRegistration);
@@ -16,5 +19,22 @@ router.post('/authGoogle',authGoogle);
 router.post('/authFacebook',authFacebook);
 router.post('/authLinkedeIn',authLinkedeIn);
 router.post('/changePassword',changePassword);
+router.post('/authGoogle/callback',googleIdenty);
+router.get('/login',(req,res)=>{
+    res.send("salomcha")
+})
+
+
+router.get('/google', passport.authenticate('google', {
+    scope: ['email', 'profile']
+}))
+
+router.get('/google/callback', passport.authenticate('google', {
+    failureRedirect: "/authLogin"
+}), (req, res) => {
+    res.end('Log in!')
+})
+
+
 
 module.exports = router;

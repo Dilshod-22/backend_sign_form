@@ -2,6 +2,7 @@ const user = require('../models/user');
 const asyncHandler=require('express-async-handler');
 const {sendMesasage} = require('../config/nodemailer');
 const {random} = require('../config/random');
+
 let info = {};
 const authLogin = asyncHandler(
     async(req,res) => {
@@ -62,13 +63,19 @@ const receiveAccount = asyncHandler(
 
 const authGoogle = asyncHandler(
     async(req,res) => {
-
+        
     }
 );
 
 const authFacebook = asyncHandler(
     async(req,res) => {
+        
+    }
+);
 
+const googleIdenty = asyncHandler(
+    async(req,res) => {
+        passport.authenticate('facebook')
     }
 );
 
@@ -97,5 +104,6 @@ module.exports = {
     authFacebook,
     authLinkedeIn,
     receiveAccount,
-    changePassword
+    changePassword,
+    googleIdenty
 }
