@@ -30,7 +30,7 @@ router.get('/google', passport.authenticate('google', {
 }))
 
 router.get('/google/callback', passport.authenticate('google', {
-    failureRedirect: "/authLogin"
+    failureRedirect: "/login"
 }), (req, res) => {
     res.end('Log in!')
 })
