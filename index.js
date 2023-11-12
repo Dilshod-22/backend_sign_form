@@ -5,17 +5,13 @@ const mongo = require('./config/mongoose');
 const authRouter = require('./router/authRouter');
 const cors = require('cors')
  
-const corsOptions = {
-  origin: 'http://localhost.5173',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended : true }));
-
+app.use(cors())
 mongo();
 
 
-app.use('/api/auth',cors(corsOptions),authRouter)
+app.use('/api/auth',authRouter)
 
 const PORT = process.env.PORT || 5000;
 
