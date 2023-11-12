@@ -10,7 +10,8 @@ const {
     googleIdenty } = require('../controller/authController');
 const router = express.Router();
 const passport = require('passport')
-require('../config/passport')
+require('../config/passport-google')
+require('../config/passport-facebook')
 
 router.post('/authLogin',authLogin);
 router.post('/authRegistration',authRegistration);
@@ -35,6 +36,14 @@ router.get('/google/callback', passport.authenticate('google', {
     res.end('Log in!')
 })
 
-
+router.get('/facebook',
+  passport.authenticate('facebook'));
+ 
+router.get('/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
 
 module.exports = router;
