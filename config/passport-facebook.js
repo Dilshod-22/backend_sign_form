@@ -1,3 +1,4 @@
+const passport = require('passport');
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
