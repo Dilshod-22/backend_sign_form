@@ -4,16 +4,23 @@ const {sendMesasage} = require('../config/nodemailer');
 const {random} = require('../config/random');
 
 let info = {};
+
+const getUserInfo = asyncHandler(
+    async(req,res) => {
+        const user = await user.findById(req.params.id);
+        res.send(user)
+    }
+)
+
 const authLogin = asyncHandler(
     async(req,res) => {
         const { password , email } = req.body;
         const find = await user.findOne({email:email,password:password});
         if(find) {
-            res.send(find);
+            res.send(find._id).status(200);
             res.end();      
         }else{
-            res.send('email or passwors is wrong');
-            res.end();  
+            throw new Error('email or passwors is wrong')
         }   
     }
 );
@@ -23,8 +30,7 @@ const authRegistration = asyncHandler(
         const { username , password , email } = req.body;
         const find = await user.findOne({email:email});
         if(find) {
-            res.send('this email is already registered');
-            res.end();    
+            throw new Error('this email is already registered');
         }else{
             const users = {
                 username:username,
