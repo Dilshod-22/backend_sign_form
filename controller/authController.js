@@ -62,7 +62,7 @@ const receiveAccount = asyncHandler(
             await sendMesasage(data)
             res.send('sended to success');   
         }else{
-            res.send('email is mot found');    
+            throw new Error('email is mot found');
         }
     }    
 );
