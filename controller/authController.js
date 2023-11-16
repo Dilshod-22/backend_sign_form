@@ -101,20 +101,18 @@ const changePassword = asyncHandler(
             res.send('Confirmation password error')
         }
     }
-)
+);
 
 
 const resetPassword = asyncHandler(async(req, res) => {
     const { password } = req.body
     const { id } = req.params
     
-    const user = await user.findOne({
-        passwordResetToken: id
-    })
+    const useri = await user.findOne({passwordResetToken: id})
 
-    user.password = password
-    user.passwordResetToken = undefined
-    await user.save()
+    useri.password = password
+    useri.passwordResetToken = undefined
+    await useri.save()
     res.status(200).json({ message: 'Password is success changed!' })
 })
 
