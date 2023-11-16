@@ -1,9 +1,8 @@
 const user = require('../models/user');
 const asyncHandler=require('express-async-handler');
 const {sendMesasage} = require('../config/nodemailer');
-const {random} = require('../config/random');
+const { v4: uuidv4 } = require('uuid');
 
-let info = {};
 
 const getUserInfo = asyncHandler(
     async(req,res) => {
@@ -45,14 +44,13 @@ const authRegistration = asyncHandler(
 );
 
 const receiveAccount = asyncHandler(
-    async(req,res) => {
+    async(req,res) => { 
         const { email } = req.body;
         const find = await user.findOne({email:email});
         if(find) {
-            info.email = find.id;
-            info.code = random();
-            console.log(info.code);
-            const deleteUrl = `Your code for recvery password ${info.code}`
+            let info = uuidv4();
+            console.log(info);
+            const deleteUrl = `Привет пожалуйста нажмите на линк (срок линка истечёт через 10 минут)<a href='http://localhost:8000/reset-password/${info}'>Нажмите сюда</a>`
             const data = {
             from: "kutubxona655@gmail.com",
             to: email,
@@ -60,7 +58,9 @@ const receiveAccount = asyncHandler(
             text: deleteUrl
             }
             await sendMesasage(data)
-            res.send(info.code);   
+            find.passwordResetToken = info; 
+            await find.save()
+            res.send('send success');   
         }else{
             throw new Error('email is mot found');
         }
@@ -103,6 +103,21 @@ const changePassword = asyncHandler(
     }
 )
 
+
+const resetPassword = asyncHandler(async(req, res) => {
+    const { password } = req.body
+    const { token } = req.params
+    
+    const user = await Client.findOne({
+        passwordResetToken: token
+    })
+
+    user.password = password
+    user.passwordResetToken = undefined
+    await user.save()
+    res.status(200).json({ message: 'Password is success changed!' })
+})
+
 module.exports = {
     authLogin,
     authRegistration,
@@ -111,5 +126,6 @@ module.exports = {
     authLinkedeIn,
     receiveAccount,
     changePassword,
-    googleIdenty
+    googleIdenty,
+    resetPassword
 }

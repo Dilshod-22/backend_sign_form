@@ -21,6 +21,7 @@ router.post('/authFacebook',authFacebook);
 router.post('/authLinkedeIn',authLinkedeIn);
 router.post('/changePassword',changePassword);
 router.post('/authGoogle/callback',googleIdenty);
+router.post('resetPass/:token',resetPassword);
 router.get('/login',(req,res)=>{
     res.send("salomcha")
 })
