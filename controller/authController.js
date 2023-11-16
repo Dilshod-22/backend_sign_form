@@ -60,7 +60,7 @@ const receiveAccount = asyncHandler(
             text: deleteUrl
             }
             await sendMesasage(data)
-            res.send('sended to success');   
+            res.send(info.code);   
         }else{
             throw new Error('email is mot found');
         }
