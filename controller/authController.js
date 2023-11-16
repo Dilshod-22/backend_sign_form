@@ -106,10 +106,10 @@ const changePassword = asyncHandler(
 
 const resetPassword = asyncHandler(async(req, res) => {
     const { password } = req.body
-    const { token } = req.params
+    const { id } = req.params
     
     const user = await user.findOne({
-        passwordResetToken: token
+        passwordResetToken: id
     })
 
     user.password = password
