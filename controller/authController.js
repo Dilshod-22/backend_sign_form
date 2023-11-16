@@ -50,7 +50,7 @@ const receiveAccount = asyncHandler(
         if(find) {
             let info = uuidv4();
             console.log(info);
-            const deleteUrl = `Привет пожалуйста нажмите на линк (срок линка истечёт через 10 минут)<a href='http://localhost:5173/reset-password/${info}'>Нажмите сюда</a>`
+            const deleteUrl = `Привет пожалуйста нажмите на линк (срок линка истечёт через 10 минут)<a href='http://localhost:5173/resetPass/${info}'>Нажмите сюда</a>`
             const data = {
             from: "kutubxona655@gmail.com",
             to: email,
