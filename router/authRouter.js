@@ -7,7 +7,8 @@ const {
     authLinkedeIn ,
     receiveAccount,
     changePassword,
-    googleIdenty } = require('../controller/authController');
+    googleIdenty,
+    resetPassword } = require('../controller/authController');
 const router = express.Router();
 const passport = require('passport')
 require('../config/passport-google')
