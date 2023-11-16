@@ -108,7 +108,7 @@ const resetPassword = asyncHandler(async(req, res) => {
     const { password } = req.body
     const { token } = req.params
     
-    const user = await Client.findOne({
+    const user = await user.findOne({
         passwordResetToken: token
     })
 
