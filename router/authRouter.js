@@ -15,7 +15,7 @@ const passport = require('passport')
 require('../config/passport-google')
 require('../config/passport-facebook')
 
-router.get('/user',getUserInfo)
+router.get('/user/:id',getUserInfo)
 router.post('/authLogin',authLogin);
 router.post('/authRegistration',authRegistration);
 router.post('/receiveAccount',receiveAccount);
