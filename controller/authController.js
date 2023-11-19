@@ -6,8 +6,8 @@ const { v4: uuidv4 } = require('uuid');
 
 const getUserInfo = asyncHandler(
     async(req,res) => {
-        const user = await user.findById(req.params.id);
-        res.send(user)
+        const info = await user.findById(req.params.id);
+        res.send(info)
     }
 )
 
